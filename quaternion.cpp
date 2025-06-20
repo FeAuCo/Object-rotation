@@ -9,22 +9,6 @@ quaternion::Quaternion(const double& a, const double& b, const double&  c, const
     this->components[3] = d;
 }
 
-double quaternion::getA(){
-    return this->components[0];
-}
-
-double quaternion::getB(){
-    return this->components[1];
-}
-
-double quaternion::getC(){
-    return this->components[2];
-}
-
-double quaternion::getD(){
-    return this->components[3];
-}
-
 void quaternion::setA(const double& new_a){
     this->components[0] = new_a;
 }
@@ -45,19 +29,23 @@ double quaternion::getAbs(){
     return sqrt((this->components[0]) * (this->components[0]) + (this->components[1]) * (this->components[1]) + (this->components[2]) * (this->components[2]) + (this->components[3]) * (this->components[3]));
 }
 
-double* quaternion::build(){
-    
+double quaternion::operator[](const int& index){
+    return this->components[index];
 }
 
 quaternion quaternion::conjugate(){
     return quaternion(this->components[0], this->components[1] * (-1), this->components[2] * (-1), this->components[3] * (-1));
 }
 
-//-------
-quaternion quaternion::operator*(const quaternion& other){
-    return quaternion(0, 0, 0, 0);
+quaternion quaternion::operator*(quaternion& other){
+    return quaternion
+                                (
+                                    this->components[0] * other[0] - this->components[1] * other[1] - this->components[2] * other[2] - this->components[3] * other[3],
+                                    this->components[0] * other[1] + this->components[1] * other[0] + this->components[2] * other[3] - this->components[3] * other[2],
+                                    this->components[0] * other[2] + this->components[2] * other[0] - this->components[1] * other[3] + this->components[3] * other[1],
+                                    this->components[0] * other[3] + this->components[3] * other[0] + this->components[1] * other[2] - this->components[2] * other[1]
+                                );
 }
-//-------
 
 quaternion getQ(const double& x, const double& y, const double& z, const double& w){
     return quaternion(cos(w/2), sin(w/2) * x, sin(w/2) * y, sin(w/2) * z);
@@ -68,7 +56,7 @@ quaternion getH(const double& x, const double& y, const double& z){
 }
 
 //-------
-// quaternion rotate(const quaternion& q, const quaternion& h){
+// quaternion rotate(quaternion& q, quaternion& h){
 //     return q * h * q.conjugate();
 // }
 //-------
