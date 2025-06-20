@@ -25,10 +25,6 @@ void quaternion::setD(const double& new_d){
     this->components[3] = new_d;
 }
 
-double quaternion::getAbs(){
-    return obj_r::toZero(sqrt((this->components[0]) * (this->components[0]) + (this->components[1]) * (this->components[1]) + (this->components[2]) * (this->components[2]) + (this->components[3]) * (this->components[3])));
-}
-
 double quaternion::operator[](const int& index) const{
     return this->components[index];
 }
