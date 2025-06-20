@@ -26,37 +26,45 @@ void quaternion::setD(const double& new_d){
 }
 
 double quaternion::getAbs(){
-    return sqrt((this->components[0]) * (this->components[0]) + (this->components[1]) * (this->components[1]) + (this->components[2]) * (this->components[2]) + (this->components[3]) * (this->components[3]));
+    return obj_r::toZero(sqrt((this->components[0]) * (this->components[0]) + (this->components[1]) * (this->components[1]) + (this->components[2]) * (this->components[2]) + (this->components[3]) * (this->components[3])));
 }
 
-double quaternion::operator[](const int& index){
+double quaternion::operator[](const int& index) const{
     return this->components[index];
 }
 
-quaternion quaternion::conjugate(){
+quaternion quaternion::conjugate() const{
     return quaternion(this->components[0], this->components[1] * (-1), this->components[2] * (-1), this->components[3] * (-1));
 }
 
-quaternion quaternion::operator*(quaternion& other){
+quaternion quaternion::operator*(const quaternion& other) const{
     return quaternion
                                 (
-                                    this->components[0] * other[0] - this->components[1] * other[1] - this->components[2] * other[2] - this->components[3] * other[3],
-                                    this->components[0] * other[1] + this->components[1] * other[0] + this->components[2] * other[3] - this->components[3] * other[2],
-                                    this->components[0] * other[2] + this->components[2] * other[0] - this->components[1] * other[3] + this->components[3] * other[1],
-                                    this->components[0] * other[3] + this->components[3] * other[0] + this->components[1] * other[2] - this->components[2] * other[1]
+                                    obj_r::toZero(this->components[0] * other[0] - this->components[1] * other[1] - this->components[2] * other[2] - this->components[3] * other[3]),
+                                    obj_r::toZero(this->components[0] * other[1] + this->components[1] * other[0] + this->components[2] * other[3] - this->components[3] * other[2]),
+                                    obj_r::toZero(this->components[0] * other[2] + this->components[2] * other[0] - this->components[1] * other[3] + this->components[3] * other[1]),
+                                    obj_r::toZero(this->components[0] * other[3] + this->components[3] * other[0] + this->components[1] * other[2] - this->components[2] * other[1])
                                 );
 }
 
-quaternion getQ(const double& x, const double& y, const double& z, const double& w){
+quaternion obj_r::getQ(const double& x, const double& y, const double& z, const double& w){
     return quaternion(cos(w/2), sin(w/2) * x, sin(w/2) * y, sin(w/2) * z);
 }
 
-quaternion getH(const double& x, const double& y, const double& z){
+quaternion obj_r::getH(const double& x, const double& y, const double& z){
     return quaternion(0 , x, y, z);
 }
 
-//-------
-// quaternion rotate(quaternion& q, quaternion& h){
-//     return q * h * q.conjugate();
-// }
-//-------
+quaternion obj_r::rotate(const quaternion& q, const quaternion& h){
+    return q * h * q.conjugate();
+}
+
+double obj_r::toZero(const double& number){
+    if (std::abs(number) < 1e-10){
+        return 0;
+    }
+
+    else{
+        return number;
+    }
+}

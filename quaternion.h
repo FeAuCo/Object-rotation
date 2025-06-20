@@ -20,16 +20,18 @@ namespace obj_r{
 
             double getAbs();
 
-            double operator[](const int& index);
+            double operator[](const int& index) const;
             
-            Quaternion conjugate();
+            Quaternion conjugate() const;
 
-            Quaternion operator*(Quaternion& other);
+            Quaternion operator*(const Quaternion& other) const;
     };
 
     Quaternion getQ(const double& x, const double& y, const double& z, const double& w);
 
     Quaternion getH(const double& x, const double& y, const double& z);
 
-    Quaternion rotate(Quaternion& q, Quaternion& h);
+    Quaternion rotate(const Quaternion& q, const Quaternion& h);
+
+    double toZero(const double& number);
 }
