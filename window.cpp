@@ -4,36 +4,35 @@
 #include "quaternion.h"
 
 typedef obj_r::Quaternion quaternion;
-typedef obj_r::ImaginaryUnit imUnit;
 
 int main(){
-    GLFWwindow* window;
+    // GLFWwindow* window;
 
-    if (!glfwInit())
-        return -1;
+    // if (!glfwInit())
+    //     return -1;
 
-    window = glfwCreateWindow(640, 640, "Object Rotation", NULL, NULL);
+    // window = glfwCreateWindow(640, 640, "Object Rotation", NULL, NULL);
 
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
+    // if (!window)
+    // {
+    //     glfwTerminate();
+    //     return -1;
+    // }
 
-    glfwMakeContextCurrent(window);
+    // glfwMakeContextCurrent(window);
 
-    //glew from here
+    // //glew from here
 
-    while (!glfwWindowShouldClose(window))
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
+    // while (!glfwWindowShouldClose(window))
+    // {
+    //     glClear(GL_COLOR_BUFFER_BIT);
 
-        glfwSwapBuffers(window);
+    //     glfwSwapBuffers(window);
         
-        glfwPollEvents();
-    }
+    //     glfwPollEvents();
+    // }
 
-    glfwTerminate();
+    // glfwTerminate();
 
     return 0;
 }

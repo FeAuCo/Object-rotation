@@ -1,73 +1,63 @@
 #include "quaternion.h"
 
 typedef obj_r::Quaternion quaternion;
-typedef obj_r::ImaginaryUnit imUnit;
 
-const std::map<std::string, std::string> obj_r::i_row = {{"i", "-1"}, {"j", "k"}, {"k", "-j"}};
-const std::map<std::string, std::string> obj_r::j_row = {{"i", "-k"}, {"j", "-1"}, {"k", "i"}};
-const std::map<std::string, std::string> obj_r::k_row = {{"i", "j"}, {"j", "-i"}, {"k", "-1"}};
-
-const std::map<std::string, const std::map<std::string, std::string>> obj_r::TABLE  = {{"i", obj_r::i_row}, {"j", obj_r::j_row}, {"k", obj_r::k_row}};
-
-quaternion::Quaternion(const double& a, const double& b, const double&  c, const double& d)
-    : a(a), b(b), c(c), d(d)
-{}
+quaternion::Quaternion(const double& a, const double& b, const double&  c, const double& d){
+    this->components[0] = a;
+    this->components[1] = b;
+    this->components[2] = c;
+    this->components[3] = d;
+}
 
 double quaternion::getA(){
-    return this->a;
+    return this->components[0];
 }
 
 double quaternion::getB(){
-    return this->b;
+    return this->components[1];
 }
 
 double quaternion::getC(){
-    return this->c;
+    return this->components[2];
 }
 
 double quaternion::getD(){
-    return this->d;
+    return this->components[3];
 }
 
 void quaternion::setA(const double& new_a){
-    this->a = new_a;
+    this->components[0] = new_a;
 }
 
 void quaternion::setB(const double& new_b){
-    this->b = new_b;
+    this->components[1] = new_b;
 }
 
 void quaternion::setC(const double& new_c){
-    this->c = new_c;
+    this->components[2] = new_c;
 }
 
 void quaternion::setD(const double& new_d){
-this->d = new_d;
+    this->components[3] = new_d;
 }
 
 double quaternion::getAbs(){
-    return sqrt((this->a) * (this->a) + (this->b) * (this->b) + (this->c) * (this->c) + (this->d) * (this->d));
+    return sqrt((this->components[0]) * (this->components[0]) + (this->components[1]) * (this->components[1]) + (this->components[2]) * (this->components[2]) + (this->components[3]) * (this->components[3]));
+}
+
+double* quaternion::build(){
+    
 }
 
 quaternion quaternion::conjugate(){
-    return quaternion(this->a, this->b * (-1), this->c * (-1), this->d * (-1));
+    return quaternion(this->components[0], this->components[1] * (-1), this->components[2] * (-1), this->components[3] * (-1));
 }
+
 //-------
 quaternion quaternion::operator*(const quaternion& other){
-    std::string this_q = std::to_string(this->getA()
-);
-
     return quaternion(0, 0, 0, 0);
 }
 //-------
-
-imUnit::ImaginaryUnit(const std::string& unit)
-    : unit(unit)
-{}
-
-imUnit  imUnit::operator*(imUnit& other){
-    return imUnit((obj_r::TABLE.at(this->unit)).at(other.unit));
-}
 
 quaternion getQ(const double& x, const double& y, const double& z, const double& w){
     return quaternion(cos(w/2), sin(w/2) * x, sin(w/2) * y, sin(w/2) * z);
@@ -76,6 +66,7 @@ quaternion getQ(const double& x, const double& y, const double& z, const double&
 quaternion getH(const double& x, const double& y, const double& z){
     return quaternion(0 , x, y, z);
 }
+
 //-------
 // quaternion rotate(const quaternion& q, const quaternion& h){
 //     return q * h * q.conjugate();

@@ -1,25 +1,11 @@
 #pragma once
 
 #include <cmath>
-#include <map>
-#include <string>
 
 namespace obj_r{
-    extern const std::map<std::string, std::string> i_row, j_row, k_row;
-    extern const std::map<std::string, const std::map<std::string, std::string>> TABLE;
-
-    class ImaginaryUnit{
-        public:
-            std::string unit;
-
-            ImaginaryUnit(const std::string& unit);
-
-            ImaginaryUnit operator*(ImaginaryUnit& other); 
-    };
-
     class Quaternion{
         private:
-            double a, b, c, d;
+            double components[4];
 
         public:
             Quaternion(const double& a, const double& b, const double& c, const double& d);
@@ -41,6 +27,8 @@ namespace obj_r{
             void setD(const double& new_d);
 
             double getAbs();
+
+            double* build();
 
             Quaternion conjugate();
 
