@@ -4,6 +4,7 @@
 #include "quaternion.h"
 
 typedef obj_r::Quaternion quaternion;
+typedef obj_r::ImaginaryUnit imUnit;
 
 int main(){
     GLFWwindow* window;
@@ -23,7 +24,6 @@ int main(){
 
     //glew from here
 
-
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -34,12 +34,6 @@ int main(){
     }
 
     glfwTerminate();
-
-    quaternion q1(1, 1, 1, 1);
-    quaternion q2(2, 2, 2, 2);
-
-    std::cout << q1.getB();
-    std::cout << q2.getB();
 
     return 0;
 }
